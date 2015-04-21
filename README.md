@@ -59,7 +59,7 @@ var bar = require('foo/bar.js')
 ### Attentions
 
 - Require hook will pollute `Module._load()`. You must be knowing this, and there's a `requere/deregister` to help you disable require hook.
-- `requere`'s require hook may conflict with other package's require hook, e.g. [`CoffeeScript`](http://coffeescript.org/), [`Babel`](https://babeljs.io/). Though my test looks fine when using `requere`, `CoffeeScript` and `Babel` together.
+- `requere`'s require hook may conflict with other package's require hook, e.g. [`CoffeeScript`](http://coffeescript.org/), [`Babel`](https://babeljs.io/). If you use `requere()` instead register hook, everything goes fine.
 
 # Contributors
 
