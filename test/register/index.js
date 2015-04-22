@@ -28,4 +28,16 @@ describe('requere/register', function () {
     }
     expect(func).to.throw('Cannot find module \'module_not_found\'')
   })
+
+  it('should load index.js when requiring a directory', function () {
+    expect(require('test/textual/foo/')).to.equal('foo/index.js')
+  })
+
+  it('should request has no extname and exists, should load it', function () {
+    expect(require('test/textual/bar')).to.equal('file bar')
+  })
+
+  it('should request has no extname and not exist, should load it with supported extension names', function () {
+    expect(require('test/textual/baz')).to.equal('file baz.js')
+  })
 })
