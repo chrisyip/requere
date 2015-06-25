@@ -68,7 +68,7 @@ Via [GitHub](https://github.com/chrisyip/requere/graphs/contributors)
 [npm-url]: https://npmjs.org/package/requere
 [npm-image]: http://img.shields.io/npm/v/requere.svg?style=flat-square
 [daviddm-url]: https://david-dm.org/chrisyip/requere
-[daviddm-image]: http://img.shields.io/david/chrisyip/requere.svg?style=flat-square
+[daviddm-image]: https://david-dm.org/chrisyip/requere.svg?style=flat-square
 [travis-url]: https://travis-ci.org/chrisyip/requere
 [travis-image]: http://img.shields.io/travis/chrisyip/requere.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/chrisyip/requere
