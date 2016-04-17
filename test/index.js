@@ -8,12 +8,20 @@ describe('requere()', function () {
     expect(requere).to.be.a('function')
   })
 
-  it('should require module correctly', function () {
+  it('should load module correctly', function () {
     const path = requere('path')
     expect(path).to.equal(require('path'))
     expect(require('./textual/a.js')).to.equal(requere('test/textual/a.js'))
 
     expect(requere(path.resolve(process.cwd(), './test/textual/a'))).to.equal('Module A')
+  })
+
+  it('should load built-in module', function () {
+    expect(requere('path')).to.equal(require('path'))
+  })
+
+  it('should load installed module', function () {
+    expect(requere('cson')).to.equal(require('cson'))
   })
 
   it('should resolve module start from module root', function () {

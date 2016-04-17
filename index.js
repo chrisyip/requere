@@ -1,11 +1,15 @@
 'use strict'
 
-const Module = require('module')
-
 const resolver = require('./lib/resolver.js')
 const extensions = require('./lib/extensions')
 
 const getCWD = require('./lib/get-cwd')
+
+function resolvedByRequire (request) {
+  try {
+    return require(request)
+  } catch (e) {}
+}
 
 function requere (request, onlySupportedExtname) {
   if (
@@ -13,16 +17,15 @@ function requere (request, onlySupportedExtname) {
     typeof request !== 'string' ||
 
     request === '.' ||
-    request === '..' ||
-
-    // Check if it's a built-in module
-    !Module._resolveLookupPaths(request)[1].length
+    request === '..'
   ) {
     return require(request)
   }
 
-  if (request[0] === '/') {
-    return resolver(request, '', onlySupportedExtname)
+  // Check if it's a built-in module
+  const mod = resolvedByRequire(request)
+  if (mod) {
+    return mod
   }
 
   return resolver(request, getCWD(__filename, new Error, request[0] === '.'), onlySupportedExtname)
