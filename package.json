@@ -1,6 +1,6 @@
 {
   "name": "requere",
-  "version": "1.0.0-1",
+  "version": "1.0.0-2",
   "description": "Better way to require file in node",
   "main": "index.js",
   "scripts": {
