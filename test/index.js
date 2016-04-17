@@ -72,6 +72,9 @@ describe('requere()', function () {
 
       const bResults = requere('./textual/*.js')
       expect(results).to.deep.equal(bResults)
+
+      expect(requere('test/textual/nested/**/*'))
+        .to.deep.equal(['bar', 'foo.js in nested folders', 'foo.js in nested folders'])
     })
 
     it('should always return an array', function () {
