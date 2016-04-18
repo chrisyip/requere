@@ -3,7 +3,7 @@
 const resolver = require('./lib/resolver.js')
 const extensions = require('./lib/extensions')
 
-const getCWD = require('./lib/get-cwd')
+const getParent = require('./lib/get-parent')
 
 function resolvedByRequire (request) {
   try {
@@ -28,7 +28,7 @@ function requere (request, onlySupportedExtname) {
     return mod
   }
 
-  return resolver(request, getCWD(__filename, new Error, request[0] === '.'), onlySupportedExtname)
+  return resolver(request, getParent(__filename, new Error, request[0] === '.'), onlySupportedExtname)
 }
 
 requere.register = (ext, loader) => {
