@@ -45,7 +45,13 @@ requere(pattern, onlySupportedExtname)
 requere('foo/bar/**/*.js')
 ```
 
-Returns an array with loaded modules.
+Returns an object with loaded modules, module's full path will be the key:
+
+```js
+{
+  '/path/to/foo.js': exported
+}
+```
 
 ### `onlySupportedExtname`
 

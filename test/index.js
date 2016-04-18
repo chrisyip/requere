@@ -65,27 +65,37 @@ describe('requere()', function () {
 
   describe('glob', function() {
     it('should support glob', function () {
-      const results = requere('test/textual/*.js')
-      expect(results.length).to.equal(3)
-      expect(results[0]).to.equal('Module A')
-      expect(results[2]).to.equal('file baz.js')
+      const result = requere('test/textual/*.js')
+      const keys = Object.keys(result)
+      expect(keys.length).to.equal(3)
+      expect(result[keys[0]]).to.equal('Module A')
+      expect(result[keys[1]]).to.equal('file bar.js')
+      expect(result[keys[2]]).to.equal('file baz.js')
 
-      const bResults = requere('./textual/*.js')
-      expect(results).to.deep.equal(bResults)
+      const bResult = requere('./textual/*.js')
+      expect(result).to.deep.equal(bResult)
 
-      expect(requere('test/textual/nested/**/*'))
-        .to.deep.equal(['bar', 'foo.js in nested folders', 'foo.js in nested folders'])
+      const nestedResult = requere('test/textual/nested/**/*')
+      const nestedKeys = Object.keys(nestedResult)
+
+      expect(nestedKeys.length).to.equal(3)
+      expect(nestedKeys[0].endsWith('test/textual/nested/bar/bar.js'))
+        .to.be.true
+      expect(nestedKeys[1].endsWith('test/textual/nested/foo.js'))
+        .to.be.true
+      expect(nestedKeys[2].endsWith('test/textual/nested/index.js'))
+        .to.be.true
     })
 
-    it('should always return an array', function () {
-      expect(requere('folder_not_exists/**/*.js')).to.be.an('array')
-      expect(requere('lib/**/*.js')).to.be.an('array')
+    it('should always return an object', function () {
+      expect(requere('folder_not_exists/**/*.js')).to.be.an('object')
+      expect(requere('lib/**/*.js')).to.be.an('object')
     })
 
     it(
       'should only load modules with supported extname with `onlySupportedExtname` is true',
       function () {
-        expect(requere('test/textual/**/*', true)).to.be.an('array')
+        expect(requere('test/textual/**/*', true)).to.be.an('object')
       }
     )
   })
