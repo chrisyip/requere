@@ -4,8 +4,8 @@
   "description": "Better way to require file in node",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint .",
-    "test": "./node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha --check-leaks test/index.js",
+    "lint": "standard",
+    "test": "istanbul cover _mocha --check-leaks test/index.js",
     "test-travis": "npm run lint && npm test"
   },
   "repository": {
@@ -22,15 +22,15 @@
     "node": ">=4.0"
   },
   "devDependencies": {
-    "chai": "^2.2.0",
+    "chai": "^3.5.0",
     "coffee-script": "^1.9.1",
-    "cson": "^3.0.2",
-    "eslint": "^2.1.0",
-    "istanbul": "^0.3.13",
-    "mocha": "^2.2.4"
+    "cson": "^4.0.0",
+    "istanbul": "^0.4.0",
+    "mocha": "^3.2.0",
+    "standard": "^9.0.1"
   },
   "dependencies": {
-    "glob": "^7.0.0",
-    "is-glob": "^2.0.1"
+    "glob": "^7.1.0",
+    "is-glob": "^3.1.0"
   }
 }

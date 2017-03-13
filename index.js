@@ -28,7 +28,7 @@ function requere (request, onlySupportedExtname) {
     return mod
   }
 
-  return resolver(request, getParent(__filename, new Error, request[0] === '.'), onlySupportedExtname)
+  return resolver(request, getParent(__filename, new Error(), request[0] === '.'), onlySupportedExtname)
 }
 
 requere.register = (ext, loader) => {

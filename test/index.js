@@ -1,3 +1,6 @@
+/* eslint-env mocha */
+/* eslint-disable no-unused-expressions */
+
 'use strict'
 
 const expect = require('chai').expect
@@ -63,7 +66,7 @@ describe('requere()', function () {
     expect(() => requere({})).to.throw(Error, 'path must be a string')
   })
 
-  describe('glob', function() {
+  describe('glob', function () {
     it('should support glob', function () {
       const result = requere('test/textual/*.js')
       const keys = Object.keys(result)
@@ -101,7 +104,7 @@ describe('requere()', function () {
   })
 })
 
-describe('requere.register()', function() {
+describe('requere.register()', function () {
   it('should support custom module loader', function () {
     requere.register('.cson', require('cson').load.bind(require('cson')))
 
