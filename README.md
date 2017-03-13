@@ -2,13 +2,13 @@
 
 [![NPM version][npm-image]][npm-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Travis CI][travis-image]][travis-url] [![Coveralls][coveralls-image]][coveralls-url]
 
-Better way to require file in node
+Better way to load modules in node.
 
 # What is `requere`
 
-`requere` is a package that avoid ugly path when requiring modules in node.
+`requere` is a package that avoid ugly path when loading modules in node.
 
-For example, if there's a folder structure like this:
+For example:
 
 ```
 config.js
@@ -21,19 +21,54 @@ lib/
 If you wanna use `config.js` in `foobar.js`, you might write code like this:
 
 ```js
-var config = require('../../../config.js')
+const config = require('../../../config.js')
 ```
 
 Yes, you have to figure out how many `../` out there.
 
-How about `requere`?
+But with `requere`:
 
 ```js
-var requere = require('requere')
-var config = requere('config.js')
+const config = require('requere')('config.js')
 ```
 
-Yes, just that simple.
+Yes, simple.
+
+## glob
+
+`requere` supports [`glob`](https://github.com/isaacs/node-glob).
+
+```js
+requere(pattern, onlySupportedExtname)
+
+// Example
+requere('foo/bar/**/*.js')
+```
+
+Returns an object with loaded modules, module's full path will be the key:
+
+```js
+{
+  '/path/to/foo.js': exported
+}
+```
+
+### `onlySupportedExtname`
+
+If `onlySupportedExtname` is `true`, `requere` will only load modules with supported extname.
+
+You can check supported extnames by `require.extensions` and `requere.extensions`.
+
+For example:
+
+```
+foo/
+  bar/
+    baz.jpg
+    foobar.js
+```
+
+`requere('foo/bar/*')` will throw errors, but `requere('foo/bar/*', true)` will not throw errors and return `foobar.js`.
 
 ## How to Use
 
@@ -43,23 +78,29 @@ Install via [npm](https://www.npmjs.com/):
 npm install requere
 ```
 
-- Loading module: `requere('fs')`
-- Loading file in relative path: `requere('./foo.js')` or `requere('../bar.js')`
-- Loading file from the top folder of package: `requere('foo/bar.js')`
-
-## Require Hook
-
-If you hate to require `requere` in all files, you can use require hook in your main file:
-
 ```js
-require('requere/register')
-var bar = require('foo/bar.js')
+const requere = require('requere')
+
+// Loading a npm package
+const path = requere('path')
+
+// Loading a file module
+const foo = requere('./foo')
+
+// Loading a file module from package root folder
+const bar = requere('foobar/bar')
+
+// Loading with glob pattern
+const modules = requere('baz/**/*.@(js|json)')
+
+// Loading with custom module loader
+requere.register('.cson', requere('cson').load.bind(requere('cson')))
+requere('config/*.cson')
 ```
 
-### Attentions
+## Require Hook (deprecated)
 
-- Require hook will pollute `Module._load()`. You must be knowing this, and there's a `requere/deregister` to help you disable require hook.
-- `requere`'s require hook may conflict with other package's require hook, e.g. [`CoffeeScript`](http://coffeescript.org/), [`Babel`](https://babeljs.io/). If you use `requere()` instead register hook, everything goes fine.
+Requere hook is buggy, so, it's deprecated.
 
 # Contributors
 
